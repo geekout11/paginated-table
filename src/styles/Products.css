@@ -1,0 +1,35 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.pagination .MuiButtonBase-root {
+    margin: 7px;
+}
+
+.justify-content {
+    display: flex;
+    justify-content: center;
+}
+
+.paginationWrapper .MuiInputBase-root {
+    display: flex;
+    align-items: center;
+    width: 23%;
+    margin: auto;
+}
+
+.pageCounter {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: auto;
+    padding: 10px;
+}
+
+.pageCounter .MuiCircularProgress-root {
+    margin-left: 50px;
+    margin-top: -10px;
+    padding: 5px;
+}
