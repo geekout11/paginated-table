@@ -4,21 +4,16 @@ import React from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
-import Product from './Product'
+import ProductsList from './ProductsList'
 import '../styles/Products.css'
+import Pagination from './Pagination'
 
 
 /* MATERIAL */
-import Button from '@mui/material/Button';
 import {
     Alert,
     CircularProgress,
-    Typography
 } from '@mui/material'
-
-/* ICONS */
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 /* TYPES */
 
@@ -31,7 +26,7 @@ type QueryDataProps = {
     isPreviousData: any
 }
 
-const ProductList = (): JSX.Element => {
+const ProductsContainer = (): JSX.Element => {
     const [page, setPage] = useState(1)
 
 
@@ -85,24 +80,12 @@ const ProductList = (): JSX.Element => {
 
     return (
         <div className='paginationWrapper'>
-            <Product key={products.id} products={products} />
+            <ProductsList key={products.id} products={products} />
 
-            <div className='pagination'>
-                <Button variant="contained" onClick={() => { setPage(page - 1) }} disabled={isPreviousData || page === 1}>
-                    <NavigateBeforeIcon />
-                </Button>
-                
-                <Button variant="contained" onClick={() => { setPage(page + 1) }}
-                    disabled={isPreviousData || page === products.total_pages}>
-                    <NavigateNextIcon />
-                </Button>
-            </div>
 
-            <div className='pageCounter'>
-                <Typography>Page: {products.page}</Typography>
-                {isFetching && <CircularProgress disableShrink />}
-            </div>
+            <Pagination setPage={setPage} page={page} isPreviousData={isPreviousData} products={products} isFetching={isFetching} />
         </div>
     )
 }
-export default ProductList;
+
+export default ProductsContainer;

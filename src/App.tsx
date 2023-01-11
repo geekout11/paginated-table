@@ -1,9 +1,9 @@
 import React from 'react'
-import ProductList from './components/ProductList'
+import ProductsContainer from './components/ProductsContainer'
 // import Example1 from './components/Example1';
 
 function App() {
-  return <ProductList/>
+  return <ProductsContainer/>
 }
 
 export default App;

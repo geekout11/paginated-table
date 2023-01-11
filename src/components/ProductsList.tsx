@@ -27,7 +27,7 @@ type ProductData = {
     pantone_value: string;
 }
 
-const Product = ({ products }: any): JSX.Element => {
+const ProductsList = ({ products }: any): JSX.Element => {
     const [open, setOpen] = useState(false);
     const [clickedProduct, setClickedProduct] = useState<any>();
     const [filterProducts, setFilteredProducts] = useState('')
@@ -146,4 +146,4 @@ const Product = ({ products }: any): JSX.Element => {
     );
 };
 
-export default Product;
+export default ProductsList;
