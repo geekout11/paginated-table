@@ -67,7 +67,6 @@ const ProductList = (): JSX.Element => {
         const response = await axios.get(
             `https://reqres.in/api/products?per_page=${perPage}&page=${pageParam}`
         )
-        // console.log(response)
         return response.data
     }
 
