@@ -12,7 +12,6 @@ import {
     Typography,
     Box,
     TableHead,
-    Input,
 } from '@mui/material';
 import TableContainer from '@mui/material/TableContainer';
 
@@ -27,26 +26,18 @@ type ProductData = {
     pantone_value: string;
 }
 
-const ProductsList = ({ products }: any): JSX.Element => {
-    const [open, setOpen] = useState(false);
+const ProductsList = ({ products, filterProducts }: any): JSX.Element => {
+    const [openModal, setOpenModal] = useState(false);
     const [clickedProduct, setClickedProduct] = useState<any>();
-    const [filterProducts, setFilteredProducts] = useState('')
 
     const handleOpen = (product: any) => {
         setClickedProduct(product);
-        setOpen(true);
+        setOpenModal(true);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        setOpenModal(false);
     };
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value
-        if (/^\d*$/.test(value)) {
-            setFilteredProducts(value)
-        }
-    }
 
     /* STYLES */
 
@@ -83,14 +74,8 @@ const ProductsList = ({ products }: any): JSX.Element => {
 
     return (
         <React.Fragment>
-            <Input
-                type="text"
-                value={filterProducts}
-                onChange={handleChange}
-                placeholder='Search by ID'
-            />
             <Modal
-                open={open}
+                open={openModal}
                 onClose={handleClose}
                 aria-labelledby="parent-modal-title"
                 aria-describedby="parent-modal-description"
@@ -114,7 +99,7 @@ const ProductsList = ({ products }: any): JSX.Element => {
                     </Typography>
                 </Box>
             </Modal>
-            
+
             <TableContainer sx={tableContainerSx}>
                 <Table>
                     <TableHead sx={{ "& .MuiTableCell-stickyHeader": { backgroundColor: "primary.main" } }}>

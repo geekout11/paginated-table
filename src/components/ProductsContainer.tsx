@@ -1,18 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 /* BASIC IMPORTS */
 import axios from 'axios'
-import { useState } from 'react'
 import { useQuery } from 'react-query'
 import ProductsList from './ProductsList'
-import '../styles/Products.css'
 import Pagination from './Pagination'
-
+import '../styles/Products.css'
 
 /* MATERIAL */
 import {
     Alert,
     CircularProgress,
+    Input
 } from '@mui/material'
 
 /* TYPES */
@@ -28,7 +27,9 @@ type QueryDataProps = {
 
 const ProductsContainer = (): JSX.Element => {
     const [page, setPage] = useState(1)
+    const [filterProducts, setFilteredProducts] = useState('')
 
+    const perPage = 5
 
     /* STYLES */
 
@@ -53,8 +54,8 @@ const ProductsContainer = (): JSX.Element => {
         error,
         data: products,
         isFetching,
-        isPreviousData,
-    }: QueryDataProps = useQuery(['/products', page], () => getProductPage(page), {
+        isPreviousData
+    }: QueryDataProps = useQuery(['/products', page], () => getProductPage(page, perPage), {
         keepPreviousData: true
     })
 
@@ -78,10 +79,24 @@ const ProductsContainer = (): JSX.Element => {
         )
     }
 
-    return (
-        <div className='paginationWrapper'>
-            <ProductsList key={products.id} products={products} />
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value
+        if (/^\d*$/.test(value)) {
+            setFilteredProducts(value)
+        }
+    }
 
+    return (
+        <div className='productsContainerWrapper'>
+
+            <Input
+                type="text"
+                value={filterProducts}
+                onChange={handleChange}
+                placeholder='Search by ID'
+            />
+
+            <ProductsList key={products} products={products} filterProducts={filterProducts} />
 
             <Pagination setPage={setPage} page={page} isPreviousData={isPreviousData} products={products} isFetching={isFetching} />
         </div>
