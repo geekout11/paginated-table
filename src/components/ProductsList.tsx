@@ -18,7 +18,7 @@ import TableContainer from '@mui/material/TableContainer';
 /* ICONS */
 import CloseIcon from '@mui/icons-material/Close';
 
-type ProductData = {
+export type ProductData = {
     id: number;
     name: string;
     year: number;

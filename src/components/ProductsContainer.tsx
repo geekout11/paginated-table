@@ -16,13 +16,13 @@ import {
 
 /* TYPES */
 
-type QueryDataProps = {
+type QueryData = {
     isLoading: boolean,
     isError: boolean,
     error: any,
     data: any,
     isFetching: boolean,
-    isPreviousData: any
+    isPreviousData: boolean
 }
 
 const ProductsContainer = (): JSX.Element => {
@@ -55,7 +55,7 @@ const ProductsContainer = (): JSX.Element => {
         data: products,
         isFetching,
         isPreviousData
-    }: QueryDataProps = useQuery(['/products', page], () => getProductPage(page, perPage), {
+    }: QueryData = useQuery(['/products', page], () => getProductPage(page, perPage), {
         keepPreviousData: true
     })
 
@@ -98,7 +98,7 @@ const ProductsContainer = (): JSX.Element => {
 
             <ProductsList key={products} products={products} filterProducts={filterProducts} />
 
-            <Pagination setPage={setPage} page={page} isPreviousData={isPreviousData} products={products} isFetching={isFetching} />
+            <Pagination setPage={setPage} page={page} isPreviousData={isPreviousData} isFetching={isFetching} totalPages={products.total_pages} />
         </div>
     )
 }

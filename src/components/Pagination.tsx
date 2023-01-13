@@ -8,7 +8,15 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 
-const Pagination = ({ setPage, page, isPreviousData, products, isFetching }: any) => {
+type PaginationProps = {
+    isFetching: boolean
+    page: number
+    isPreviousData: boolean
+    setPage: React.Dispatch<React.SetStateAction<number>>
+    totalPages: number
+}
+
+const Pagination = ({ setPage, page, isPreviousData, totalPages, isFetching }: PaginationProps) => {
 
     return (
         <div className='paginationWrapper'>
@@ -21,14 +29,14 @@ const Pagination = ({ setPage, page, isPreviousData, products, isFetching }: any
                 </Button>
 
                 <Button variant="contained" onClick={() => { setPage(page + 1) }}
-                    disabled={isPreviousData || page === products.total_pages}
+                    disabled={isPreviousData || page === totalPages}
                 >
                     <NavigateNextIcon />
                 </Button>
             </div>
 
             <div className='pageCounter'>
-                <Typography>Page: {products.page}</Typography>
+                <Typography>Page: {page}</Typography>
                 {isFetching && <CircularProgress disableShrink />}
             </div>
         </div>
