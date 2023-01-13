@@ -17,20 +17,20 @@ import TableContainer from '@mui/material/TableContainer';
 
 /* ICONS */
 import CloseIcon from '@mui/icons-material/Close';
+import { ProductData } from '../types/ProductData';
 
-export type ProductData = {
-    id: number;
-    name: string;
-    year: number;
-    color: string;
-    pantone_value: string;
+/* TYPES */
+
+type ProductList = {
+    products: { data: ProductData[] }
+    filterProducts: string
 }
 
-const ProductsList = ({ products, filterProducts }: any): JSX.Element => {
+const ProductsList = ({ products, filterProducts }: ProductList): JSX.Element => {
     const [openModal, setOpenModal] = useState(false);
-    const [clickedProduct, setClickedProduct] = useState<any>();
+    const [clickedProduct, setClickedProduct] = useState<ProductData | any>();
 
-    const handleOpen = (product: any) => {
+    const handleOpen = (product: ProductData) => {
         setClickedProduct(product);
         setOpenModal(true);
     };

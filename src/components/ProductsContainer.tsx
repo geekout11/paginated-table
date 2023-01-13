@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
 /* BASIC IMPORTS */
-import axios from 'axios'
+import axios, {AxiosError} from 'axios'
 import { useQuery } from 'react-query'
 import ProductsList from './ProductsList'
 import Pagination from './Pagination'
 import '../styles/Products.css'
+import { GetProductPageProps } from '../types/GetProductPageProps'
 
 /* MATERIAL */
 import {
@@ -19,7 +20,7 @@ import {
 type QueryData = {
     isLoading: boolean,
     isError: boolean,
-    error: any,
+    error: AxiosError<unknown, any> | null,
     data: any,
     isFetching: boolean,
     isPreviousData: boolean
@@ -59,7 +60,7 @@ const ProductsContainer = (): JSX.Element => {
         keepPreviousData: true
     })
 
-    const getProductPage = async (pageParam = 1, perPage = 5) => {
+    const getProductPage = async (pageParam = 1, perPage = 5): Promise<GetProductPageProps> => {
         const response = await axios.get(
             `https://reqres.in/api/products?per_page=${perPage}&page=${pageParam}`
         )
@@ -74,7 +75,7 @@ const ProductsContainer = (): JSX.Element => {
     } else if (isError) {
         return (
             <Alert sx={errorStyling} variant="filled" severity="error">
-                {error.message}
+                {error?.message}
             </Alert>
         )
     }
